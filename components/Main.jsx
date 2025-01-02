@@ -66,7 +66,15 @@ const Main = () => {
       setTaskTimeError("Please select a due date.");
       return;
     }
+
+    const currentDate = new Date();
+    const taskDate = new Date(task_time);
   
+    if (taskDate <= currentDate) {
+      setTaskTimeError("Please select a due date in the future.");
+      return;
+    }
+    
     try {
       const res = await fetch("/api/tasks", {
         method: "POST",
